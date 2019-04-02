@@ -35,7 +35,7 @@ namespace statusengine {
     class StandardCallback : public NebmoduleCallback {
     public:
         explicit StandardCallback(IStatusengine &se) : NebmoduleCallback(CBT, se) {
-            qHandler = se.GetMessageHandler()->GetMessageQueueHandler(queue);
+            qHandler = se.GetMessageHandler().GetMessageQueueHandler(queue);
         }
 
         StandardCallback(StandardCallback &&other) noexcept
@@ -56,17 +56,17 @@ namespace statusengine {
         explicit ServiceCheckCallback(IStatusengine &se)
                 : NebmoduleCallback(NEBCALLBACK_SERVICE_CHECK_DATA, se), servicechecks(false), ocsp(false),
                   service_perfdata(false) {
-            auto mHandler = se.GetMessageHandler();
-            if (mHandler->QueueExists(Queue::ServiceCheck)) {
-                serviceCheckHandler = mHandler->GetMessageQueueHandler(Queue::ServiceCheck);
+            auto &mHandler = se.GetMessageHandler();
+            if (mHandler.QueueExists(Queue::ServiceCheck)) {
+                serviceCheckHandler = mHandler.GetMessageQueueHandler(Queue::ServiceCheck);
                 servicechecks = true;
             }
-            if (mHandler->QueueExists(Queue::OCSP)) {
-                ocspHandler = mHandler->GetMessageQueueHandler(Queue::OCSP);
+            if (mHandler.QueueExists(Queue::OCSP)) {
+                ocspHandler = mHandler.GetMessageQueueHandler(Queue::OCSP);
                 ocsp = true;
             }
-            if (mHandler->QueueExists(Queue::ServicePerfData)) {
-                servicePerfHandler = mHandler->GetMessageQueueHandler(Queue::ServicePerfData);
+            if (mHandler.QueueExists(Queue::ServicePerfData)) {
+                servicePerfHandler = mHandler.GetMessageQueueHandler(Queue::ServicePerfData);
                 service_perfdata = true;
             }
         }
@@ -112,13 +112,13 @@ namespace statusengine {
         explicit ProcessDataCallback(IStatusengine &se)
                 : NebmoduleCallback(NEBCALLBACK_PROCESS_DATA, se), restartData(false), processData(false),
                   startupSchedulerMax(se.GetStartupScheduleMax()) {
-            auto mHandler = se.GetMessageHandler();
-            if (mHandler->QueueExists(Queue::RestartData)) {
-                restartHandler = mHandler->GetMessageQueueHandler(Queue::RestartData);
+            auto &mHandler = se.GetMessageHandler();
+            if (mHandler.QueueExists(Queue::RestartData)) {
+                restartHandler = mHandler.GetMessageQueueHandler(Queue::RestartData);
                 restartData = true;
             }
-            if (mHandler->QueueExists(Queue::ProcessData)) {
-                processHandler = mHandler->GetMessageQueueHandler(Queue::ProcessData);
+            if (mHandler.QueueExists(Queue::ProcessData)) {
+                processHandler = mHandler.GetMessageQueueHandler(Queue::ProcessData);
                 processData = true;
             }
         }
@@ -189,13 +189,13 @@ namespace statusengine {
     public:
         explicit HostCheckCallback(IStatusengine &se)
                 : NebmoduleCallback(NEBCALLBACK_HOST_CHECK_DATA, se), hostchecks(false), ochp(false) {
-            auto mHandler = se.GetMessageHandler();
-            if (mHandler->QueueExists(Queue::HostCheck)) {
-                hostCheckHandler = mHandler->GetMessageQueueHandler(Queue::HostCheck);
+            auto &mHandler = se.GetMessageHandler();
+            if (mHandler.QueueExists(Queue::HostCheck)) {
+                hostCheckHandler = mHandler.GetMessageQueueHandler(Queue::HostCheck);
                 hostchecks = true;
             }
-            if (mHandler->QueueExists(Queue::OCHP)) {
-                ochpHandler = mHandler->GetMessageQueueHandler(Queue::OCHP);
+            if (mHandler.QueueExists(Queue::OCHP)) {
+                ochpHandler = mHandler.GetMessageQueueHandler(Queue::OCHP);
                 ochp = true;
             }
         }

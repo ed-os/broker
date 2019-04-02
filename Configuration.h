@@ -183,6 +183,7 @@ namespace statusengine {
     class Configuration {
       public:
         explicit Configuration(IStatusengine &se) : se(se), maxWorkerMessagesPerInterval(0) {}
+
         ~Configuration() {
             rabbitmq.clear(); // shared_ptr
         }

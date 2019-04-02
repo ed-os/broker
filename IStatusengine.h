@@ -9,7 +9,7 @@ namespace statusengine {
       public:
         virtual LogStream &Log() = 0;
         virtual void FlushBulkQueue() = 0;
-        virtual IMessageHandlerList *GetMessageHandler() const = 0;
+        virtual IMessageHandlerList &GetMessageHandler() const = 0;
         virtual void InitEventCallbacks() = 0;
         virtual time_t GetStartupScheduleMax() const = 0;
     };

@@ -26,7 +26,7 @@ namespace statusengine {
             return interval;
         }
         void Callback() override {
-            se.GetMessageHandler()->Worker();
+            se.GetMessageHandler().Worker();
         }
 
     private:

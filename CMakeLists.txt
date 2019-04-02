@@ -19,7 +19,7 @@ include(FindPkgConfig)
 find_package(PkgConfig REQUIRED)
 
 set (SESources
-	Nebmodule.cpp Statusengine.cpp
+	Nebmodule.cpp
 	MessageHandler/MessageHandlerList.cpp
 )
 
