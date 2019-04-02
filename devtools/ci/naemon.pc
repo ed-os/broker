@@ -1,4 +1,4 @@
-prefix=/opt/naemon
+prefix=/opt/statusengine
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

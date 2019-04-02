@@ -5,8 +5,8 @@ build:trusty:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake3 gcc g++ build-essential libglib2.0-dev libgearman-dev uuid-dev libicu-dev libjson-c-dev libssl-dev pkg-config librabbitmq-dev
     - |
       set -e
-      mkdir -p /usr/local/lib/pkgconfig /opt/naemon/include
-      ln -s $(readlink -f devtools/ci/naemon) /opt/naemon/include/naemon
+      mkdir -p /usr/local/lib/pkgconfig /opt/statusengine/include
+      ln -s $(readlink -f devtools/ci/naemon) /opt/statusengine/include/naemon
       ln -s $(readlink -f devtools/ci/naemon.pc) /usr/local/lib/pkgconfig/naemon.pc
     - |
       mkdir build
@@ -29,8 +29,8 @@ build:xenial:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake gcc g++ build-essential libglib2.0-dev libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev librabbitmq-dev
     - |
       set -e
-      mkdir -p /usr/local/lib/pkgconfig /opt/naemon/include
-      ln -s $(readlink -f devtools/ci/naemon) /opt/naemon/include/naemon
+      mkdir -p /usr/local/lib/pkgconfig /opt/statusengine/include
+      ln -s $(readlink -f devtools/ci/naemon) /opt/statusengine/include/naemon
       ln -s $(readlink -f devtools/ci/naemon.pc) /usr/local/lib/pkgconfig/naemon.pc
     - |
       mkdir build
@@ -53,33 +53,8 @@ build:bionic:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake gcc g++ build-essential libglib2.0-dev libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev librabbitmq-dev
     - |
       set -e
-      mkdir -p /usr/local/lib/pkgconfig /opt/naemon/include
-      ln -s $(readlink -f devtools/ci/naemon) /opt/naemon/include/naemon
-      ln -s $(readlink -f devtools/ci/naemon.pc) /usr/local/lib/pkgconfig/naemon.pc
-    - |
-      mkdir build
-      cd build
-      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ ..
-      make -j5
-      mv libstatusengine.so ..
-  artifacts:
-    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
-    paths:
-      - libstatusengine.so
-      - README.md
-      - VERSION
-      - LICENSE
-
-build:jessie:
-  image: debian:jessie
-  stage: build
-  script:
-    - echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list
-    - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y -t jessie-backports install cmake gcc g++ build-essential libglib2.0-dev libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev librabbitmq-dev
-    - |
-      set -e
-      mkdir -p /usr/local/lib/pkgconfig /opt/naemon/include
-      ln -s $(readlink -f devtools/ci/naemon) /opt/naemon/include/naemon
+      mkdir -p /usr/local/lib/pkgconfig /opt/statusengine/include
+      ln -s $(readlink -f devtools/ci/naemon) /opt/statusengine/include/naemon
       ln -s $(readlink -f devtools/ci/naemon.pc) /usr/local/lib/pkgconfig/naemon.pc
     - |
       mkdir build
@@ -102,8 +77,8 @@ build:stretch:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake gcc g++ build-essential libglib2.0-dev libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev librabbitmq-dev
     - |
       set -e
-      mkdir -p /usr/local/lib/pkgconfig /opt/naemon/include
-      ln -s $(readlink -f devtools/ci/naemon) /opt/naemon/include/naemon
+      mkdir -p /usr/local/lib/pkgconfig /opt/statusengine/include
+      ln -s $(readlink -f devtools/ci/naemon) /opt/statusengine/include/naemon
       ln -s $(readlink -f devtools/ci/naemon.pc) /usr/local/lib/pkgconfig/naemon.pc
     - |
       mkdir build
@@ -126,12 +101,12 @@ build:nagios:trusty:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake3 gcc g++ build-essential libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev libglib2.0-dev librabbitmq-dev
     - |
       set -e
-      mkdir -p /opt/nagios/include
-      ln -s $(readlink -f devtools/ci/nagios) /opt/nagios/include/nagios
+      mkdir -p /opt/statusengine/include
+      ln -s $(readlink -f devtools/ci/nagios) /opt/statusengine/include/nagios
     - |
       mkdir build
       cd build
-      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/nagios/include ..
+      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/statusengine/include ..
       make -j5
       mv libstatusengine.so ..
   artifacts:
@@ -149,12 +124,12 @@ build:nagios:xenial:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake gcc g++ build-essential libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev librabbitmq-dev libglib2.0-dev
     - |
       set -e
-      mkdir -p /opt/nagios/include
-      ln -s $(readlink -f devtools/ci/nagios) /opt/nagios/include/nagios
+      mkdir -p /opt/statusengine/include
+      ln -s $(readlink -f devtools/ci/nagios) /opt/statusengine/include/nagios
     - |
       mkdir build
       cd build
-      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/nagios/include ..
+      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/statusengine/include ..
       make -j5
       mv libstatusengine.so ..
   artifacts:
@@ -172,36 +147,12 @@ build:nagios:bionic:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake gcc g++ build-essential libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev librabbitmq-dev libglib2.0-dev
     - |
       set -e
-      mkdir -p /opt/nagios/include
-      ln -s $(readlink -f devtools/ci/nagios) /opt/nagios/include/nagios
+      mkdir -p /opt/statusengine/include
+      ln -s $(readlink -f devtools/ci/nagios) /opt/statusengine/include/nagios
     - |
       mkdir build
       cd build
-      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/nagios/include ..
-      make -j5
-      mv libstatusengine.so ..
-  artifacts:
-    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
-    paths:
-      - libstatusengine.so
-      - README.md
-      - VERSION
-      - LICENSE
-
-build:nagios:jessie:
-  image: debian:jessie
-  stage: build
-  script:
-    - echo "deb http://ftp.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list
-    - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y -t jessie-backports install cmake gcc g++ build-essential libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev librabbitmq-dev libglib2.0-dev
-    - |
-      set -e
-      mkdir -p /opt/nagios/include
-      ln -s $(readlink -f devtools/ci/nagios) /opt/nagios/include/nagios
-    - |
-      mkdir build
-      cd build
-      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/nagios/include ..
+      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/statusengine/include ..
       make -j5
       mv libstatusengine.so ..
   artifacts:
@@ -219,12 +170,12 @@ build:nagios:stretch:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install cmake gcc g++ build-essential libgearman-dev uuid-dev libicu-dev libjson-c-dev pkg-config libssl-dev librabbitmq-dev libglib2.0-dev
     - |
       set -e
-      mkdir -p /opt/nagios/include
-      ln -s $(readlink -f devtools/ci/nagios) /opt/nagios/include/nagios
+      mkdir -p /opt/statusengine/include
+      ln -s $(readlink -f devtools/ci/nagios) /opt/statusengine/include/nagios
     - |
       mkdir build
       cd build
-      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/nagios/include ..
+      cmake -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DBUILD_NAGIOS=ON -DNAGIOS_INCLUDE_DIR=/opt/statusengine/include ..
       make -j5
       mv libstatusengine.so ..
   artifacts:

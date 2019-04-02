@@ -37,12 +37,12 @@ Then create the make files
 
 #### Ubuntu/Debian
 ```bash
-export PKG_CONFIG_PATH=/opt/naemon/lib/pkgconfig/
+export PKG_CONFIG_PATH=/opt/statusengine/lib/pkgconfig/
 cmake ../broker
 ```
 #### RHEL/CentOS
 ```bash
-export PKG_CONFIG_PATH=/opt/naemon/lib/pkgconfig/
+export PKG_CONFIG_PATH=/opt/statusengine/lib/pkgconfig/
 cmake3 ../broker
 ```
 
@@ -76,7 +76,7 @@ make install
 
 The default installation path for the library is /usr/local, which means that the so file will be placed under /usr/local/lib/libstatusengine.so.
 
-You can specify -DCMAKE_INSTALL_PREFIX:PATH=/opt/naemon as cmake argument to change the path.
+You can specify -DCMAKE_INSTALL_PREFIX:PATH=/opt/statusengine as cmake argument to change the path.
 
 ### Disable RabbitMQ or Gearman
 
@@ -90,7 +90,7 @@ Per default everything is disabled and the broker does nothing.
 You can look at statusengine.toml as an example configuration file. In your naemon.cfg/nagios.cfg you have to specify the
 broker module like this:
 ```ini
-broker_module=/opt/naemon/lib/libstatusengine.so /path/to/statusengine.toml
+broker_module=/opt/statusengine/lib/libstatusengine.so /path/to/statusengine.toml
 ```
 
 ## Developer build + test
